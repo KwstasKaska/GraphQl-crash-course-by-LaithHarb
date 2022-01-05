@@ -1,12 +1,20 @@
-const { ApolloServer, gql } = require('apollo-server');
+const { ApolloServer } = require('apollo-server');
+const { mainCards, animals, categories } = require('./db');
+const typeDefs = require('./schema');
+const Query = require('./resolvers/Query');
+const Category = require('./resolvers/Category');
+const Animal = require('./resolvers/Animal');
 
-const typeDefs = gql`
-  type Book {
-    title: String
-    author: String
-  }
+const server = new ApolloServer({
+  typeDefs,
+  resolvers: {
+    Query,
+    Animal,
+    Category,
+  },
+});
 
-  type Query {
-    books: [Book]
-  }
-`;
+// The `listen` method launches a web server.
+server.listen().then(({ url }) => {
+  console.log(`🚀  Server ready at ${url}`);
+});
