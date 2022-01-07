@@ -1,5 +1,5 @@
 const Query = {
-  mainCards: () => mainCards,
+  mainCards: (parent, args, { mainCards }) => mainCards,
   animals: (parent, args, { animals }) => animals,
   animal: (parent, args, { animals }) => {
     let animal = animals.find((animal) => {
